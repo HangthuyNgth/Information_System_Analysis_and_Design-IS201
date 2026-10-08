@@ -4,6 +4,18 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="i9kw9EkruLYnfiMfCyIy-1" parent="1" style="swimlane;html=1;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;startSize=20;whiteSpace=wrap;" value="USE-CASE DIAGRAM" vertex="1">
+          <mxGeometry height="480" width="240" x="230" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i9kw9EkruLYnfiMfCyIy-2" parent="i9kw9EkruLYnfiMfCyIy-1" style="swimlane;html=1;startSize=20;" value="WEBSITE APP" vertex="1">
+          <mxGeometry height="460" width="120" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="i9kw9EkruLYnfiMfCyIy-5" parent="i9kw9EkruLYnfiMfCyIy-2" style="shape=mermaidUsecaseActor;actorType=normal;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="" vertex="1">
+          <mxGeometry height="72" width="56" x="20" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="i9kw9EkruLYnfiMfCyIy-3" parent="i9kw9EkruLYnfiMfCyIy-1" style="swimlane;html=1;startSize=20;" value="MOBILE APP" vertex="1">
+          <mxGeometry height="460" width="120" x="120" y="20" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
