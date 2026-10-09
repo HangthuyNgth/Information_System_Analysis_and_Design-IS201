@@ -1,0 +1,76 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+'' ACTORS
+actor "CUSTOMER\n(Passenger)" as Customer
+actor "GUEST" as Guest
+rectangle "Payment Gateway\n<<External System>>" as Payment #CCCCCC
+rectangle "Metro Gate System\n<<External System>>" as GateSystem #CCCCCC
+
+
+'' PACKAGES
+package "MOBILE APP" {
+    package "Ticket Management" {
+        note "<b>Precondition:</b>\nUser must be logged in to access functions." as N_Precondition
+
+        usecase "Buy Ticket" as UC_BuyTicket
+        usecase "Pay for Ticket" as UC_PayTicket
+        usecase "View Ticket" as UC_ViewTicket
+        usecase "Display QR Code" as UC_QR
+        usecase "Enter Code" as UC_EnterCode
+        usecase "View History" as UC_History
+    }
+
+    package "Other Services" {
+        usecase "View Metro Info" as UC_Route
+        usecase "Send Feedback" as UC_Feedback
+    }
+}
+package "METRO GATE SYSTEM"  {
+    usecase "Scan/Tap Ticket at Gate" as UC_GateCheck
+}
+package "METRO KIOSK" {
+    usecase "Buy Ticket" as UC_KioskBuy
+    usecase "Payment for Ticket" as UC_KioskPay
+    usecase "Print Single-use Paper QR" as UC_PrintPaperQR
+    usecase "Issue Day Pass Card" as UC_IssueDayCard
+
+    usecase "Return Day Pass Card" as UC_ReturnCard
+    usecase "Refund Deposit" as UC_Refund
+}
+
+'' CUSTOMER ASSOCIATIONS
+Customer -- UC_BuyTicket
+Customer -- UC_ViewTicket
+Customer -- UC_EnterCode
+Customer -- UC_History
+Customer -- UC_Route
+Customer -- UC_Feedback
+Customer -- UC_GateCheck
+
+'' GUEST ASSOCIATIONS
+Guest -- UC_KioskBuy
+Guest -- UC_ReturnCard
+Guest -- UC_GateCheck
+
+
+'' EXTERNAL ASSOCIATIONS
+UC_PayTicket -- Payment
+UC_GateCheck -- GateSystem
+UC_KioskPay -- Payment
+UC_Refund -- Payment
+
+'' USE CASE RELATIONSHIPS
+UC_BuyTicket ..> UC_PayTicket : <<include>>
+UC_ViewTicket ..> UC_QR : <<include>>
+
+UC_ReturnCard ..> UC_Refund : <<include>>
+UC_KioskBuy ..> UC_KioskPay : <<include>>
+UC_KioskPay .r.> UC_PrintPaperQR : <<include>>\n[if single-use ticket]
+UC_KioskPay .u.> UC_IssueDayCard : <<include>>\n[if day pass card]
+
+
+@enduml
+
+

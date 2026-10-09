@@ -1,0 +1,93 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+''''''''''''''''''LIST OF ACTORS''''''''''''''''''
+actor "SYSTEM ADMIN\n(Administrator)" as Admin
+
+''''''''''''''''''''''USE CASE''''''''''''''''''
+package "WEB APP" {
+
+    note "<b>Precondition:</b>\nUser must be logged in to access management functions." as N_Precondition
+
+package "Administrator Management" {
+    ' --- MANAGE MENU ---
+    usecase "Manage Menu" as UC_ManageMenu
+    usecase "View Menu List" as UC_ViewMenu
+    usecase "Add Menu Item" as UC_AddMenu
+    usecase "Edit Menu Item" as UC_EditMenu
+    usecase "Delete Menu Item" as UC_DeleteMenu
+    usecase "Config Menu Structure" as UC_AssignMenu
+
+    ' --- MANAGE AUTHORITY ---
+    usecase "Manage Authority" as UC_ManageAuth
+    usecase "View Authority List" as UC_ViewAuth
+    usecase "Grant Screen Authority" as UC_AddAuth
+
+    ' --- MANAGE USER ---
+    usecase "Manage User" as UC_ManageUser
+    usecase "View User List" as UC_ViewUser
+    usecase "Add User" as UC_AddUser
+    usecase "Edit User" as UC_EditUser
+    usecase "Remove User" as UC_RemoveUser
+}
+
+
+    package "Code & Configuration" {
+        usecase "Manage System Configuration" as UC_ManageConfig
+        usecase "Manage System Code" as UC_ManageCode
+    }
+
+    package "Metro" {
+        usecase "Manage Metro" as UC_ManageMetro
+        usecase "Manage Metro Line" as UC_ManageMetroLine
+        usecase "Manage Metro Station" as UC_ManageMetroStation
+        usecase "Manage Schedule" as UC_ManageSchedule
+    }
+
+    package "Ticket" {
+        usecase "Manage Ticket" as UC_ManageTicket
+        usecase "Manage Fare Policy" as UC_ManageFare
+    }
+
+    package "Monitoring" {
+        usecase "View Dashboard" as UC_Dashboard
+        usecase "View System Logs" as UC_Logs
+    }
+
+}
+''''''''''''''''''''''LINKS''''''''''''''''''''''
+'' ADMIN ASSOCIATIONS
+Admin -- UC_ManageMenu
+Admin -- UC_ManageAuth
+Admin -- UC_ManageUser
+Admin -- UC_ManageConfig
+Admin -- UC_ManageCode
+Admin -- UC_ManageMetro
+Admin -- UC_ManageMetroLine
+Admin -- UC_ManageMetroStation
+Admin -- UC_ManageSchedule
+Admin -- UC_ManageTicket
+Admin -- UC_ManageFare
+Admin -- UC_Dashboard
+Admin -- UC_Logs
+' --- MENU RELATIONSHIPS ---
+' Bắt buộc xem danh sách khi vào quản lý
+UC_ManageMenu ..> UC_ViewMenu : <<include>>
+' Các chức năng Thêm/Sửa/Xóa/Config là tùy chọn (Extend)
+UC_AddMenu ..> UC_ManageMenu : <<extend>>
+UC_EditMenu ..> UC_ManageMenu : <<extend>>
+UC_DeleteMenu ..> UC_ManageMenu : <<extend>>
+UC_AssignMenu ..> UC_ManageMenu : <<extend>>
+
+' --- AUTHORITY RELATIONSHIPS ---
+UC_ManageAuth ..> UC_ViewAuth : <<include>>
+UC_AddAuth ..> UC_ManageAuth : <<extend>>
+
+' --- USER RELATIONSHIPS ---
+UC_ManageUser ..> UC_ViewUser : <<include>>
+UC_AddUser ..> UC_ManageUser : <<extend>>
+UC_EditUser ..> UC_ManageUser : <<extend>>
+UC_RemoveUser ..> UC_ManageUser : <<extend>>
+
+@enduml

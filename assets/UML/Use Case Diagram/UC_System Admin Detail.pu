@@ -1,0 +1,38 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+
+package "Administrator Management" {
+    ' --- MANAGE MENU ---
+    usecase "Manage Menu" as UC_ManageMenu
+    usecase "Search Menu" as UC_MenuSearch
+    usecase "View Menu Detail" as UC_MenuViewDetail
+    usecase "Config Function in Menu" as UC_MenuConfig
+    usecase "Export Menu" as UC_MenuExport
+    ' --- MANAGE AUTHORITY ---
+    usecase "Manage Authority" as UC_ManageAuth
+    usecase "Search Authority" as UC_SearchAuth
+    usecase "Grant Screen Authority" as UC_AddAuth
+
+    ' --- MANAGE USER ---
+    usecase "Manage User" as UC_ManageUser
+    usecase "Search User List" as UC_SearchUser
+    usecase "Add User" as UC_AddUser
+    usecase "Edit User" as UC_EditUser
+    usecase "Remove User" as UC_RemoveUser
+}
+
+
+
+' --- MENU RELATIONSHIPS ---
+UC_MenuSearch ..> UC_ManageMenu : <<extend>>
+UC_MenuExport ..> UC_ManageMenu : <<extend>>
+UC_MenuViewDetail ..> UC_ManageMenu : <<extend>>
+
+UC_MenuConfig ..> UC_MenuViewDetail : <<include>>
+
+
+
+
+@enduml
