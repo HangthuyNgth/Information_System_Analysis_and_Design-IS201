@@ -6,23 +6,29 @@ skinparam packageStyle rectangle
 package "Administrator Management" {
     ' --- MANAGE MENU ---
     usecase "Manage Menu" as UC_ManageMenu
+
     usecase "Search Menu" as UC_MenuSearch
     usecase "View Menu Detail" as UC_MenuViewDetail
     usecase "Config Function in Menu" as UC_MenuConfig
     usecase "Export Menu" as UC_MenuExport
     ' --- MANAGE AUTHORITY ---
     usecase "Manage Authority" as UC_ManageAuth
-    usecase "Search Authority" as UC_SearchAuth
-    usecase "Grant Screen Authority" as UC_AddAuth
 
+    usecase "Search Authority" as UC_AuthSearch
+    usecase "View Authority Detail" as UC_AuthViewDetail
+    usecase "Grant Screen Authority" as UC_AuthAdd
+    usecase "Export Authority" as UC_AuthExport
     ' --- MANAGE USER ---
     usecase "Manage User" as UC_ManageUser
-    usecase "Search User List" as UC_SearchUser
-    usecase "Add User" as UC_AddUser
-    usecase "Edit User" as UC_EditUser
-    usecase "Remove User" as UC_RemoveUser
-}
 
+    usecase "Search User List" as UC_UserSearch
+    usecase "View User Detail" as UC_UserViewDetail
+    usecase "Add User" as UC_UserAdd
+    usecase "Update User" as UC_UserUpdate
+    usecase "Delete User" as UC_UserDelete
+    usecase "Export User" as UC_UserExport
+
+}
 
 
 ' --- MENU RELATIONSHIPS ---
@@ -31,6 +37,23 @@ UC_MenuExport ..> UC_ManageMenu : <<extend>>
 UC_MenuViewDetail ..> UC_ManageMenu : <<extend>>
 
 UC_MenuConfig ..> UC_MenuViewDetail : <<include>>
+
+'--- AUTHORITY RELATIONSHIPS ---
+UC_AuthSearch ..> UC_ManageAuth : <<extend>>
+UC_AuthExport ..> UC_ManageAuth : <<extend>>
+UC_AuthViewDetail ..> UC_ManageAuth : <<extend>>
+
+UC_AuthAdd ..> UC_AuthViewDetail : <<include>>
+
+'--- USER RELATIONSHIPS ---
+UC_UserSearch ..> UC_ManageUser : <<extend>>
+UC_UserAdd ..> UC_ManageUser : <<extend>>
+UC_UserExport ..> UC_ManageUser : <<extend>>
+UC_UserDelete ..> UC_ManageUser : <<extend>>
+
+UC_UserViewDetail ..> UC_UserSearch : <<include>>
+UC_UserUpdate ..> UC_UserViewDetail : <<include>>
+
 
 
 

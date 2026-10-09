@@ -10,27 +10,32 @@ package "WEB APP" {
 
     note "<b>Precondition:</b>\nUser must be logged in to access management functions." as N_Precondition
 
-package "Administrator Management" {
-    ' --- MANAGE MENU ---
-    usecase "Manage Menu" as UC_ManageMenu
-    usecase "View Menu List" as UC_ViewMenu
-    usecase "Add Menu Item" as UC_AddMenu
-    usecase "Edit Menu Item" as UC_EditMenu
-    usecase "Delete Menu Item" as UC_DeleteMenu
-    usecase "Config Menu Structure" as UC_AssignMenu
+    package "Administrator Management" {
+        ' --- MANAGE MENU ---
+        usecase "Manage Menu" as UC_ManageMenu
 
-    ' --- MANAGE AUTHORITY ---
-    usecase "Manage Authority" as UC_ManageAuth
-    usecase "View Authority List" as UC_ViewAuth
-    usecase "Grant Screen Authority" as UC_AddAuth
+        usecase "Search Menu" as UC_MenuSearch
+        usecase "View Menu Detail" as UC_MenuViewDetail
+        usecase "Config Function in Menu" as UC_MenuConfig
+        usecase "Export Menu" as UC_MenuExport
+        ' --- MANAGE AUTHORITY ---
+        usecase "Manage Authority" as UC_ManageAuth
 
-    ' --- MANAGE USER ---
-    usecase "Manage User" as UC_ManageUser
-    usecase "View User List" as UC_ViewUser
-    usecase "Add User" as UC_AddUser
-    usecase "Edit User" as UC_EditUser
-    usecase "Remove User" as UC_RemoveUser
-}
+        usecase "Search Authority" as UC_AuthSearch
+        usecase "View Authority Detail" as UC_AuthViewDetail
+        usecase "Grant Screen Authority" as UC_AuthAdd
+        usecase "Export Authority" as UC_AuthExport
+        ' --- MANAGE USER ---
+        usecase "Manage User" as UC_ManageUser
+
+        usecase "Search User List" as UC_UserSearch
+        usecase "View User Detail" as UC_UserViewDetail
+        usecase "Add User" as UC_UserAdd
+        usecase "Update User" as UC_UserUpdate
+        usecase "Delete User" as UC_UserDelete
+        usecase "Export User" as UC_UserExport
+
+    }
 
 
     package "Code & Configuration" {
@@ -71,23 +76,32 @@ Admin -- UC_ManageTicket
 Admin -- UC_ManageFare
 Admin -- UC_Dashboard
 Admin -- UC_Logs
+
+
+
 ' --- MENU RELATIONSHIPS ---
-' Bắt buộc xem danh sách khi vào quản lý
-UC_ManageMenu ..> UC_ViewMenu : <<include>>
-' Các chức năng Thêm/Sửa/Xóa/Config là tùy chọn (Extend)
-UC_AddMenu ..> UC_ManageMenu : <<extend>>
-UC_EditMenu ..> UC_ManageMenu : <<extend>>
-UC_DeleteMenu ..> UC_ManageMenu : <<extend>>
-UC_AssignMenu ..> UC_ManageMenu : <<extend>>
+UC_MenuSearch ..> UC_ManageMenu : <<extend>>
+UC_MenuExport ..> UC_ManageMenu : <<extend>>
+UC_MenuViewDetail ..> UC_ManageMenu : <<extend>>
 
-' --- AUTHORITY RELATIONSHIPS ---
-UC_ManageAuth ..> UC_ViewAuth : <<include>>
-UC_AddAuth ..> UC_ManageAuth : <<extend>>
+UC_MenuConfig ..> UC_MenuViewDetail : <<include>>
 
-' --- USER RELATIONSHIPS ---
-UC_ManageUser ..> UC_ViewUser : <<include>>
-UC_AddUser ..> UC_ManageUser : <<extend>>
-UC_EditUser ..> UC_ManageUser : <<extend>>
-UC_RemoveUser ..> UC_ManageUser : <<extend>>
+'--- AUTHORITY RELATIONSHIPS ---
+UC_AuthSearch ..> UC_ManageAuth : <<extend>>
+UC_AuthExport ..> UC_ManageAuth : <<extend>>
+UC_AuthViewDetail ..> UC_ManageAuth : <<extend>>
+
+UC_AuthAdd ..> UC_AuthViewDetail : <<include>>
+
+'--- USER RELATIONSHIPS ---
+UC_UserSearch ..> UC_ManageUser : <<extend>>
+UC_UserAdd ..> UC_ManageUser : <<extend>>
+UC_UserExport ..> UC_ManageUser : <<extend>>
+UC_UserDelete ..> UC_ManageUser : <<extend>>
+
+UC_UserViewDetail ..> UC_UserSearch : <<include>>
+UC_UserUpdate ..> UC_UserViewDetail : <<include>>
+
+
 
 @enduml
